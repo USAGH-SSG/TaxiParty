@@ -1,5 +1,7 @@
 import Trip
 import User
+import Route
+import datetime
 
 class TripManager:
     def __init__(self) -> None:
@@ -14,3 +16,10 @@ class TripManager:
             if trip.isUserOnTrip(user):
                 usersTrip.append(user)
         return usersTrip
+
+    def findTripOnDay(self, date: datetime.date):
+        return [x for x in self.trips if x.isTripOnDate(date)].sort()
+
+    def findTripWithRoute(self, route: Route):
+        return [x for x in self.trips if x.isSameRoute(route)].sort()
+
