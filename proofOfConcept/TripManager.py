@@ -3,13 +3,14 @@ import User
 import Route
 import datetime
 
+
 class TripManager:
     def __init__(self) -> None:
         self.trips = []
-    
+
     def addTrip(self, trip: Trip) -> None:
         self.trips.append(trip)
-    
+
     def findUsersTrip(self, user: User):
         usersTrip = []
         for trip in self.trips:
@@ -22,4 +23,3 @@ class TripManager:
 
     def findTripWithRoute(self, route: Route):
         return [x for x in self.trips if x.isSameRoute(route)].sort()
-

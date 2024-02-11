@@ -3,6 +3,7 @@ import Trip
 import Route
 import User
 
+
 class Parser:
     tripManager = TripManager()
 
