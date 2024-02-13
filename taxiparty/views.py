@@ -1,10 +1,25 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+from .models import TaxiParty
+from .forms import TaxiPartyForm
+
 # Create your views here.
 def createTaxiParty_view(request):
-    print(request)
-    return render(request, "createtaxiparty.html")
+    form = TaxiPartyForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        form = TaxiPartyForm()
+    
+    context = {
+        'form': form
+    }
+    return render(request, "createtaxiparty.html", context)
 
 def home_view(request):
-    return render(request, "taxipartyhome.html")
+    partyList = TaxiParty.objects.all()
+    
+    context = {
+        "partyList": partyList
+    }
+    return render(request, "taxipartyhome.html", context)

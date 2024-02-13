@@ -1,1 +1,6 @@
+{% extends 'base.html' %}
+
+{% block content %}
 <body>Taxi Party Home</body>
+{% include 'viewtaxiparty.html' with partyList=partyList %}
+{% endblock %}
