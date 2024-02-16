@@ -18,6 +18,7 @@ def createTaxiParty_view(request):
 
 def home_view(request):
     partyList = TaxiParty.objects.all()
+    print(partyList)
     
     context = {
         "partyList": partyList
