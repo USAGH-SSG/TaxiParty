@@ -7,6 +7,7 @@ class TaxiPartyForm(forms.ModelForm):
         model = TaxiParty
         fields = [
             'date',
+            'time',
             'route',
             'rider',
         ]

@@ -1,10 +1,12 @@
 from django.db import models
-from datetime import datetime
 from django.utils import timezone
+
+import datetime
 
 # Create your models here.
 class TaxiParty(models.Model):
-    date = models.DateTimeField(blank=False, default=timezone.now())
+    date = models.DateField(blank=False, default=datetime.date.today)
+    time = models.TimeField(blank=False, default=datetime.time(8, 00))
     route = models.TextField(blank=False, default="wa mart to pt st")
     rider = models.TextField(blank=False, default="sangjun")
 
