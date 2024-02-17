@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 
 from .models import TaxiParty
@@ -24,3 +24,20 @@ def home_view(request):
         "partyList": partyList
     }
     return render(request, "taxipartyhome.html", context)
+
+def dynamic_lookup_view(request, id):
+    obj = get_object_or_404(TaxiParty, id=id)
+    context = {
+        "party": obj
+    }
+    return render(request, "partydetail.html", context)
+
+def party_delete_view(request, id):
+    obj = get_object_or_404(TaxiParty, id=id)
+    if request.method == "POST":
+        obj.delete()
+        return redirect('../../../')
+    context = {
+        "party": obj
+    }
+    return render(request, "delete_party.html", context)
