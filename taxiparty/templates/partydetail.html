@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>taxi party details</h1>
+<h1>Taxi Party Details</h1>
+<ul>
+    <li><a href='./edit/'>Edit Party Details</a></li>
+    <li><a href='./delete/'>Delete Party</a></li>
+</ul>
 <br/>
 {% include 'party_as_string.html' with party=party %}
 

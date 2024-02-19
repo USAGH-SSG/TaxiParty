@@ -1,5 +1,5 @@
 <ul>
     {% for party in partyList %}
-    <li>{{party.time}}, {{party.date}} <br/> {{party.route}}<br/> {{party.rider}}</li>
+    <li><a href="{{ party.getAbsoluteUrl }}">{{party.time}}, {{party.date}} <br/> {{party.route}}</a></li>
     {% endfor %}
 </ul>
