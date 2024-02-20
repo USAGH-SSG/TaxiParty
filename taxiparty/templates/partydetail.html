@@ -7,6 +7,6 @@
     <li><a href='./delete/'>Delete Party</a></li>
 </ul>
 <br/>
-{% include 'party_as_string.html' with party=party %}
+<p>{{party}}<br/>{{party.riderInStr}}</p>
 
 {% endblock %}
