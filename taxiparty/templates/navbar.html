@@ -1,11 +1,20 @@
 <nav>
     <ul>
-        <li><a href='/'>Home</a></li>
-        <li><a href='/createlocation/'>Create USAG Humphreys Locations</a></li>
-        <li><a href='/createroute/'>Create Taxi Routes</a></li>
-        <li><a href='/viewlocation/'>View List of USAG Humphreys Locations</a></li>
-        <li><a href='/viewroute/'>View List of Taxi Routes Available</a></li>
-        <li><a href='/createtaxiparty/'>Create Taxi Party</a></li>
+        <li><a href="{% url 'taxiparty:home' %}">Home</a></li>
+
+        {% if request.user.is_authenticated %}
+            <li><p>Welcome {{request.user.username}}!</p></li>
+            <li><a href="{% url 'user:logout' %}">Logout</a></li>
+        {% else %}
+            <li><a href="{% url 'user:login' %}">Login</a></li>
+            <li><a href="{% url 'user:signup' %}">Signup</a></li>
+        {% endif %}
+        <br/>
+        <li><a href="{% url 'taxiparty:createlocation' %}">Create USAG Humphreys Locations</a></li>
+        <li><a href="{% url 'taxiparty:createroute' %}">Create Taxi Routes</a></li>
+        <li><a href="{% url 'taxiparty:viewlocation' %}">View List of USAG Humphreys Locations</a></li>
+        <li><a href="{% url 'taxiparty:viewroute' %}">View List of Taxi Routes Available</a></li>
+        <li><a href="{% url 'taxiparty:createtaxiparty' %}">Create Taxi Party</a></li>
 
     </ul>
 </nav>

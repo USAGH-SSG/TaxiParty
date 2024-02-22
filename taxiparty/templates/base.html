@@ -5,7 +5,7 @@
     </head>
     <body>
         <h1>USAG Humphreys Taxi Party</h1>
-        {% include 'navbar.html' %}
+        {% include 'navbar.html' with request=request%}
         
         {% block content %}
 
