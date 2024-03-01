@@ -1,14 +1,22 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>USAG Humphreys Taxi Party</title>
-    </head>
-    <body>
-        <h1>USAG Humphreys Taxi Party</h1>
-        {% include 'navbar.html' with request=request%}
-        
-        {% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USAG Humphreys Taxi Party</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
+</head>
+<body>
+
+    {% include 'navbar.html' with request=request%}
+
+    <div class="container mt-4">
+        {% block content %}
+            <!-- Your content goes here -->
         {% endblock %}
-    </body>
+    </div>
+
+</body>
 </html>

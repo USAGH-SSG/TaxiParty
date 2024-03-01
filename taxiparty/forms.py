@@ -9,7 +9,7 @@ class TaxiPartyForm(forms.ModelForm):
             'date',
             'time',
             'route',
-            'rider',
+
         ]
 
 class LocationForm(forms.ModelForm):

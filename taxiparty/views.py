@@ -7,9 +7,10 @@ from .forms import TaxiPartyForm, LocationForm, RouteForm
 
 # Create your views here.
 def createTaxiParty_view(request):
-    form = TaxiPartyForm(request.POST or None, initial={'rider': request.user})
+    form = TaxiPartyForm(request.POST or None)
     if form.is_valid():
         party = form.save()
+        party.rider.add(request.user)
         return redirect(reverse('taxiparty:taxipartydynamic', kwargs={"id": party.id}))
     
     context = {
@@ -65,8 +66,13 @@ def view_route_view(request):
 
 def dynamic_lookup_view(request, id):
     obj = get_object_or_404(TaxiParty, id=id)
+    joinable = (request.user not in obj.rider.all())
+    anon = request.user.is_anonymous
+    print(request.user)
     context = {
-        "party": obj
+        "party": obj,
+        "joinable": joinable,
+        "anon": anon
     }
     return render(request, "partydetail.html", context)
 
@@ -85,6 +91,7 @@ def party_edit_view(request, id):
     if request.method == 'POST':    
         form = TaxiPartyForm(request.POST)
         if form.is_valid():
+            obj.delete()
             party = form.save()
             return redirect(reverse('taxiparty:taxipartydynamic', kwargs={'id': party.id}))
     else:
@@ -93,3 +100,8 @@ def party_edit_view(request, id):
         'form': form
     }
     return render(request, 'edit_party.html', context)
+
+def party_join_view(request, id):
+    joiner = request.user
+    TaxiParty.objects.get(id=id).rider.add(joiner)
+    return redirect(reverse('taxiparty:taxipartydynamic', kwargs={'id': id}))
