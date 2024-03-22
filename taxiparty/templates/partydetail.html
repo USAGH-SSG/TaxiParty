@@ -1,12 +1,37 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Taxi Party Details</h1>
-<ul>
-    <li><a href='./edit/'>Edit Party Details</a></li>
-    <li><a href='./delete/'>Delete Party</a></li>
-</ul>
-<br/>
-<p>{{party}}<br/>{{party.riderInStr}}</p>
+<div class="container mt-4">
+    <h1 class="mb-4">Taxi Party Details</h1>
+    {% if anon %}
+        <h5>Log In to Join Taxi Party!</h5>
+    {% endif %}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Party Information</h5>
+                    <p class="card-text">Party Name: {{ party }}</p>
+                    <p class="card-text">Riders: {{ party.riderInStr }}</p>
+                    <!-- Add more party details as needed -->
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Actions</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><a href='./edit/'>Edit Party Details</a></li>
+                        <li class="list-group-item"><a href='./delete/'>Delete Party</a></li>
+                        {% if joinable and not anon %}
+                            <li class="list-group-item"><a href='./join/'>Join Party</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
 
+    </div>
+</div>
 {% endblock %}

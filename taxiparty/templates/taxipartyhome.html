@@ -1,9 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<body>Taxi Party Home</body>
+<div class="container mt-4">
+    <h1>Taxi Party Home</h1>
 
-{% include 'calendar.html' %}
-
-{% include 'viewtaxiparty.html' with partyList=partyList %}
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">View Taxi Party</h5>
+                {% include 'viewtaxiparty.html' with partyList=partyList %}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

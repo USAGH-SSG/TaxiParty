@@ -1,12 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>create new taxi route</h1>
-<br/>
+<div class="container mt-4">
+    <h1>Create New Taxi Route</h1>
 
-<form method="POST"> {% csrf_token %}
-    {{ form.as_p}}
-<input type='submit' value='Save'/>
-</form>
-
+    <div class="row">
+        <div class="col-md-6">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.as_p }}
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

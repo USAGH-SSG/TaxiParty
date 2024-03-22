@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import TaxiParty, Route, Location
+from .models import TaxiParty, Location
 
 class TaxiPartyForm(forms.ModelForm):
     class Meta:
@@ -8,9 +8,15 @@ class TaxiPartyForm(forms.ModelForm):
         fields = [
             'date',
             'time',
-            'route',
-            'rider',
+            'origin',
+            'destination',
+
         ]
+
+    # def is_valid(self) -> bool:
+    #     if self.fields['origin'] == self.fields['destination']:
+    #         raise forms.ValidationError("Origin and destination cannot be identical")
+    #     return super().is_valid()
 
 class LocationForm(forms.ModelForm):
     class Meta:
@@ -19,15 +25,15 @@ class LocationForm(forms.ModelForm):
             'name'
         ]
 
-class RouteForm(forms.ModelForm):
-    class Meta:
-        model = Route
-        fields = [
-            'origin',
-            'destination'
-        ]
+# class RouteForm(forms.ModelForm):
+#     class Meta:
+#         model = Route
+#         fields = [
+#             'origin',
+#             'destination'
+#         ]
     
-    def is_valid(self) -> bool:
-        if self['origin'] == self['destination']:
-            raise forms.ValidationError("Origin and destination cannot be identical")
-        return super().is_valid()
+#     def is_valid(self) -> bool:
+#         if self['origin'] == self['destination']:
+#             raise forms.ValidationError("Origin and destination cannot be identical")
+#         return super().is_valid()
