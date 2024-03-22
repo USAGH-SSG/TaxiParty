@@ -2,11 +2,13 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.urls import reverse
 
-from .models import TaxiParty, Location, Route
-from .forms import TaxiPartyForm, LocationForm, RouteForm
+from .models import TaxiParty, Location
+from .forms import TaxiPartyForm, LocationForm    
 
 # Create your views here.
 def createTaxiParty_view(request):
+    if request.user.is_anonymous:
+        return redirect(reverse('user:login'))
     form = TaxiPartyForm(request.POST or None)
     if form.is_valid():
         party = form.save()
@@ -19,6 +21,8 @@ def createTaxiParty_view(request):
     return render(request, "createtaxiparty.html", context)
 
 def create_location_view(request):
+    if request.user.is_anonymous:
+        return redirect(reverse('user:login'))
     form = LocationForm(request.POST or None)
     if form.is_valid():
         form.save()
@@ -29,16 +33,16 @@ def create_location_view(request):
     }
     return render(request, "create_location.html", context)
 
-def create_route_view(request):
-    form = RouteForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        return redirect(reverse('taxiparty:home'))
+# def create_route_view(request):
+#     form = RouteForm(request.POST or None)
+#     if form.is_valid():
+#         form.save()
+#         return redirect(reverse('taxiparty:home'))
     
-    context = {
-        'form': form
-    }
-    return render(request, "create_route.html", context)
+#     context = {
+#         'form': form
+#     }
+#     return render(request, "create_route.html", context)
 
 def home_view(request):
     partyList = TaxiParty.objects.all()
@@ -56,19 +60,18 @@ def view_location_view(request):
     }
     return render(request, "view_location.html", context)
 
-def view_route_view(request):
-    routeList = Route.objects.all()
+# def view_route_view(request):
+#     routeList = Route.objects.all()
     
-    context = {
-        "routeList": routeList
-    }
-    return render(request, "view_route.html", context)
+#     context = {
+#         "routeList": routeList
+#     }
+#     return render(request, "view_route.html", context)
 
 def dynamic_lookup_view(request, id):
     obj = get_object_or_404(TaxiParty, id=id)
     joinable = (request.user not in obj.rider.all())
     anon = request.user.is_anonymous
-    print(request.user)
     context = {
         "party": obj,
         "joinable": joinable,
@@ -87,12 +90,16 @@ def party_delete_view(request, id):
     return render(request, "delete_party.html", context)
 
 def party_edit_view(request, id):
+    if request.user.is_anonymous:
+        return redirect(reverse('user:login'))
     obj = get_object_or_404(TaxiParty, id=id)
     if request.method == 'POST':    
         form = TaxiPartyForm(request.POST)
         if form.is_valid():
-            obj.delete()
+            riders = obj.rider.all()
             party = form.save()
+            party.rider.set(riders)
+            obj.delete()
             return redirect(reverse('taxiparty:taxipartydynamic', kwargs={'id': party.id}))
     else:
         form = TaxiPartyForm(instance=obj)
@@ -102,6 +109,8 @@ def party_edit_view(request, id):
     return render(request, 'edit_party.html', context)
 
 def party_join_view(request, id):
+    if request.user.is_anonymous:
+        return redirect(reverse('user:login'))
     joiner = request.user
     TaxiParty.objects.get(id=id).rider.add(joiner)
     return redirect(reverse('taxiparty:taxipartydynamic', kwargs={'id': id}))

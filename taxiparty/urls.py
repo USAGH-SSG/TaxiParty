@@ -13,6 +13,6 @@ urlpatterns = [
 
     path('createlocation/', views.create_location_view, name='createlocation'),
     path('viewlocation/', views.view_location_view, name='viewlocation'),
-    path('createroute/', views.create_route_view, name='createroute'),
-    path('viewroute/', views.view_route_view, name='viewroute'),
+    # path('createroute/', views.create_route_view, name='createroute'),
+    # path('viewroute/', views.view_route_view, name='viewroute'),
 ]
