@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.urls import reverse
@@ -33,17 +34,6 @@ def create_location_view(request):
     }
     return render(request, "create_location.html", context)
 
-# def create_route_view(request):
-#     form = RouteForm(request.POST or None)
-#     if form.is_valid():
-#         form.save()
-#         return redirect(reverse('taxiparty:home'))
-    
-#     context = {
-#         'form': form
-#     }
-#     return render(request, "create_route.html", context)
-
 def home_view(request):
     partyList = TaxiParty.objects.all()
     
@@ -60,14 +50,6 @@ def view_location_view(request):
     }
     return render(request, "view_location.html", context)
 
-# def view_route_view(request):
-#     routeList = Route.objects.all()
-    
-#     context = {
-#         "routeList": routeList
-#     }
-#     return render(request, "view_route.html", context)
-
 def dynamic_lookup_view(request, id):
     obj = get_object_or_404(TaxiParty, id=id)
     joinable = (request.user not in obj.rider.all())
@@ -79,15 +61,15 @@ def dynamic_lookup_view(request, id):
     }
     return render(request, "partydetail.html", context)
 
-def party_delete_view(request, id):
-    obj = get_object_or_404(TaxiParty, id=id)
-    if request.method == "POST":
-        obj.delete()
-        return redirect(reverse('taxiparty:home'))
-    context = {
-        "party": obj
-    }
-    return render(request, "delete_party.html", context)
+# def party_delete_view(request, id):
+#     obj = get_object_or_404(TaxiParty, id=id)
+#     if request.method == "POST":
+#         obj.delete()
+#         return redirect(reverse('taxiparty:home'))
+#     context = {
+#         "party": obj
+#     }
+#     return render(request, "delete_party.html", context)
 
 def party_edit_view(request, id):
     if request.user.is_anonymous:
@@ -112,5 +94,20 @@ def party_join_view(request, id):
     if request.user.is_anonymous:
         return redirect(reverse('user:login'))
     joiner = request.user
-    TaxiParty.objects.get(id=id).rider.add(joiner)
+    obj = get_object_or_404(TaxiParty, id=id)
+    obj.rider.add(joiner)
     return redirect(reverse('taxiparty:taxipartydynamic', kwargs={'id': id}))
+
+def party_leave_view(request, id):
+    if request.user.is_anonymous:
+        return redirect(reverse('user:login'))
+    obj = get_object_or_404(TaxiParty, id=id)
+    riders = obj.rider.all()
+    print(riders)
+    if request.user not in riders:
+        messages.info(request, 'You are not part of the Taxi Party!')
+        return redirect(reverse('taxiparty:taxipartydynamic', kwargs={'id': id}))
+    else:
+        leavingUser = request.user
+        obj.rider.remove(leavingUser)
+        return redirect(reverse('taxiparty:home'))

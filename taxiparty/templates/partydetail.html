@@ -6,6 +6,15 @@
     {% if anon %}
         <h5>Log In to Join Taxi Party!</h5>
     {% endif %}
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
     <div class="row">
         <div class="col-md-8">
             <div class="card">
@@ -23,10 +32,10 @@
                     <h5 class="card-title">Actions</h5>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><a href='./edit/'>Edit Party Details</a></li>
-                        <li class="list-group-item"><a href='./delete/'>Delete Party</a></li>
                         {% if joinable and not anon %}
-                            <li class="list-group-item"><a href='./join/'>Join Party</a></li>
+                        <li class="list-group-item"><a href='./join/'>Join Party</a></li>
                         {% endif %}
+                        <li class="list-group-item"><a href='./leave/'>Leave Party</a></li>
                     </ul>
                 </div>
             </div>
