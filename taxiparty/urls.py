@@ -7,7 +7,6 @@ urlpatterns = [
     path('', views.home_view, name='home'),
     path('createtaxiparty/', views.createTaxiParty_view, name='createtaxiparty'),
     path('taxiparty/<int:id>/', views.dynamic_lookup_view, name='taxipartydynamic'),
-    # path('taxiparty/<int:id>/delete/', views.party_delete_view, name='taxipartydelete'),
     path('taxiparty/<int:id>/edit/', views.party_edit_view, name='taxipartyedit'),
     path('taxiparty/<int:id>/join/', views.party_join_view, name='taxipartyjoin'),
     path('taxiparty/<int:id>/leave/', views.party_leave_view, name='taxipartyleave'),

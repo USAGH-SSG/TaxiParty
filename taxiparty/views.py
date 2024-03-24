@@ -61,28 +61,15 @@ def dynamic_lookup_view(request, id):
     }
     return render(request, "partydetail.html", context)
 
-# def party_delete_view(request, id):
-#     obj = get_object_or_404(TaxiParty, id=id)
-#     if request.method == "POST":
-#         obj.delete()
-#         return redirect(reverse('taxiparty:home'))
-#     context = {
-#         "party": obj
-#     }
-#     return render(request, "delete_party.html", context)
-
 def party_edit_view(request, id):
     if request.user.is_anonymous:
         return redirect(reverse('user:login'))
     obj = get_object_or_404(TaxiParty, id=id)
     if request.method == 'POST':    
-        form = TaxiPartyForm(request.POST)
+        form = TaxiPartyForm(request.POST, instance=obj)
         if form.is_valid():
-            riders = obj.rider.all()
-            party = form.save()
-            party.rider.set(riders)
-            obj.delete()
-            return redirect(reverse('taxiparty:taxipartydynamic', kwargs={'id': party.id}))
+            form.save()
+            return redirect(reverse('taxiparty:taxipartydynamic', kwargs={'id': id}))
     else:
         form = TaxiPartyForm(instance=obj)
     context = {
