@@ -65,6 +65,9 @@ def party_edit_view(request, id):
     if request.user.is_anonymous:
         return redirect(reverse('user:login'))
     obj = get_object_or_404(TaxiParty, id=id)
+    if request.user != obj.owner:
+        messages.info(request, 'You are not the owner of the Taxi Party!')
+        return redirect(reverse('taxiparty:taxipartydynamic', kwargs={'id': id}))
     if request.method == 'POST':    
         form = TaxiPartyForm(request.POST, instance=obj)
         if form.is_valid():
@@ -83,6 +86,9 @@ def party_join_view(request, id):
     joiner = request.user
     obj = get_object_or_404(TaxiParty, id=id)
     obj.rider.add(joiner)
+    if obj.owner == None:
+        obj.owner = joiner
+    obj.save()
     return redirect(reverse('taxiparty:taxipartydynamic', kwargs={'id': id}))
 
 def party_leave_view(request, id):
@@ -90,11 +96,16 @@ def party_leave_view(request, id):
         return redirect(reverse('user:login'))
     obj = get_object_or_404(TaxiParty, id=id)
     riders = obj.rider.all()
-    print(riders)
     if request.user not in riders:
         messages.info(request, 'You are not part of the Taxi Party!')
         return redirect(reverse('taxiparty:taxipartydynamic', kwargs={'id': id}))
     else:
         leavingUser = request.user
         obj.rider.remove(leavingUser)
+        riders = obj.rider.all()
+        if obj.owner == leavingUser and len(obj.rider.all()) == 0:
+            obj.owner = None
+        elif obj.owner == leavingUser:
+            obj.owner = riders[0]
+        obj.save()
         return redirect(reverse('taxiparty:home'))
