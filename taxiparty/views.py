@@ -1,6 +1,5 @@
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
 from django.urls import reverse
 
 from .models import TaxiParty, Location
@@ -14,6 +13,9 @@ def createTaxiParty_view(request):
     if form.is_valid():
         party = form.save()
         party.rider.add(request.user)
+        party.owner = request.user
+        print(party.owner)
+        party.save()
         return redirect(reverse('taxiparty:taxipartydynamic', kwargs={"id": party.id}))
     
     context = {
@@ -109,3 +111,13 @@ def party_leave_view(request, id):
             obj.owner = riders[0]
         obj.save()
         return redirect(reverse('taxiparty:home'))
+
+def my_party_view(request):
+    if request.user.is_anonymous:
+        return redirect(reverse('user:login'))
+    myParties = TaxiParty.objects.filter(rider=request.user)
+    context = {
+        'partyList': myParties
+    }
+    return render(request, "myparty.html", context)
+    

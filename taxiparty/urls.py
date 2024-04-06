@@ -13,4 +13,5 @@ urlpatterns = [
 
     path('createlocation/', views.create_location_view, name='createlocation'),
     path('viewlocation/', views.view_location_view, name='viewlocation'),
+    path('myparty/', views.my_party_view, name='myparty'),
 ]
