@@ -3,7 +3,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
 from .models import TaxiParty, Location
-from .forms import TaxiPartyForm, LocationForm    
+from .forms import TaxiPartyForm, LocationForm
+
+import datetime
 
 # Create your views here.
 def createTaxiParty_view(request):
@@ -121,3 +123,19 @@ def my_party_view(request):
     }
     return render(request, "myparty.html", context)
     
+def daily_party_view(request, date: str):
+    try:
+        year, month, day = [int(x) for x in date.split('-')]
+        dateInDateTime = datetime.date(year, month, day)
+        myParties = TaxiParty.objects.filter(date=dateInDateTime)
+        context = {
+            'date': dateInDateTime.__str__(),
+            'partyList': myParties
+        }
+    except:
+        messages.info(request, 'Oops! Wrong Date Entered! Please enter a valid date.')
+        context = {
+            'partyList': []
+        }
+
+    return render(request, "dailyparty.html", context)
