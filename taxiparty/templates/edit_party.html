@@ -2,9 +2,9 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h1>Create New Taxi Party</h1>
-    <p>Creating a new taxi party for {{ request.user }}</p>
-
+    <h1>Edit Taxi Party Details</h1>
+    <hr>
+    
     <form method="POST">
         {% csrf_token %}
         <div class="form-group">

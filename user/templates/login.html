@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Log into USAG Humphreys Taxi Party Service to Join Taxi Parties!</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            {% for message in messages %}
+            <div class="alert alert-auto-dismissible alert-dismissible notification-container text-center" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.as_p }}
+                </div>
+                <button type="submit" class="btn btn-primary">Log In</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    // Close the alert when the close button is clicked
+    document.querySelectorAll('.alert .close').forEach(function(button) {
+        button.addEventListener('click', function() {
+            button.parentElement.style.display = 'none';
+        });
+    });
+</script>
+{% endblock %}

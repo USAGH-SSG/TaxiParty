@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <form method='POST'>{% csrf_token %}
+        <h1 class="mb-4">
+            Do you want to delete the following Taxi Party?
+        </h1>
+        <div class="card">
+            <div class="card-body">
+                <p class="card-text">
+                    <strong>{{ party }}</strong><br>
+                    {{ party.riderInStr }}
+                </p>
+            </div>
+        </div>
+        <div class="mt-4">
+            <input type='submit' class="btn btn-danger mr-2" value="Yes" /> 
+            <a href='../' class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

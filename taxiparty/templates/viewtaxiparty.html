@@ -1,5 +1,7 @@
-<ul>
+<ul class="list-group">
     {% for party in partyList %}
-    <li>{{party.date}}<br/> {{party.route}}<br/> {{party.rider}}</li>
+        <li class="list-group-item">
+            <a href="{{ party.getAbsoluteUrl }}" class="text-decoration-none">{{ party }}</a>
+        </li>
     {% endfor %}
 </ul>
