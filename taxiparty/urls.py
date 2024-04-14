@@ -11,6 +11,8 @@ urlpatterns = [
     path('taxiparty/<int:id>/join/', views.party_join_view, name='taxipartyjoin'),
     path('taxiparty/<int:id>/leave/', views.party_leave_view, name='taxipartyleave'),
 
+    path('taxiparty/<slug:date>/', views.daily_party_view, name='dailyparty'),
+
     path('createlocation/', views.create_location_view, name='createlocation'),
     path('viewlocation/', views.view_location_view, name='viewlocation'),
     path('myparty/', views.my_party_view, name='myparty'),

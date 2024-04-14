@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+
+    {% else %}
+
+    <h1>Taxi Parties Scheduled for {{ date }}</h1>
+
+    {% endif %}
+
+    <div class="col-md-6">
+        <div class="card">
+
+            {% include 'viewtaxiparty.html' with partyList=partyList %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}
