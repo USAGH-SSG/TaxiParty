@@ -1,47 +1,33 @@
-{% extends 'base.html' %}
-
 {% block content %}
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" rel="stylesheet" href="mystyle.css">
-    <script src="script.js" defer></script>
-    <title>Taxi</title>
-</head>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+
+<script src="static/js/calenderjs.js" type="text/javascript"></script> 
+
 <body>
-    <nav>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-    </nav>
-
-    <h2>Dynamic HTML Calendar</h2>
-
-    <div class="month-selector">
-        <button onclick="prevMonth()">Previous Month</button>
-        <span id="currentMonthYear">February 2024</span>
-        <button onclick="nextMonth()">Next Month</button>
-    </div>
-
-    <table id="calendar">
-        <thead>
-            <tr>
-                <th>Sun</th>
-                <th>Mon</th>
-                <th>Tue</th>
-                <th>Wed</th>
-                <th>Thu</th>
-                <th>Fri</th>
-                <th>Sat</th>
-          </tr>
-        </thead>
-        <tbody>
-            <!-- Calendar content will be generated dynamically using JavaScript -->
-        </tbody>
-    </table>
+    <div class="container mt-4">
+        
+        <div class="month-selector">
+            <button onclick="prevMonth()">Previous Month</button>
+            <span id="currentMonthYear">txt</span>
+            <button onclick="nextMonth()">Next Month</button>
+        </div>
+        
+        <table id="calendar">
+            <thead>
+                <tr>
+                    <th>Sun</th>
+                    <th>Mon</th>
+                    <th>Tue</th>
+                    <th>Wed</th>
+                    <th>Thu</th>
+                    <th>Fri</th>
+                    <th>Sat</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
 
 </body>
 
