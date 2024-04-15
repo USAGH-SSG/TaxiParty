@@ -1,0 +1,68 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+button {
+    height: 40%;
+    width: 150px;
+    border: none;
+}
+
+th, td {
+    border: 2px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+    width: 13%;
+}
+
+td {
+    height: 80px;
+}
+
+.month-selector {
+    margin-top: 20px;
+    display:flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+
+li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+
+.day_cell {
+    height: auto;
+
+}
+
+.content_cell {
+    background-color: rgb(230, 242, 247);
+}
+
+.n_day_cell {
+    height: auto;
+    color: rgb(165, 165, 165);
+}
+
+.p_day_cell {
+    height: auto;
+    color: rgb(165, 165, 165);
+}
+
+#currentMonthYear {
+    font-size: 55px;
+    background-color: antiquewhite;
+}
