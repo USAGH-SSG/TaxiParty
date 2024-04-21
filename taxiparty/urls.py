@@ -12,7 +12,7 @@ urlpatterns = [
     path('taxiparty/<int:id>/leave/', views.party_leave_view, name='taxipartyleave'),
 
     path('taxiparty/daily/<slug:date>/', views.daily_party_view, name='dailyparty'),
-    path('taxiparty/month/', views.getTaxiPartyOfMonth, name='monthlytaxiparty'),
+    path('taxiparty/month/<slug:month>', views.getTaxiPartyOfMonth, name='monthlytaxiparty'),
 
     path('createlocation/', views.create_location_view, name='createlocation'),
     path('viewlocation/', views.view_location_view, name='viewlocation'),

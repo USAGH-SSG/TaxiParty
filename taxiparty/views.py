@@ -1,6 +1,8 @@
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
+from django.http import Http404
+
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -10,6 +12,7 @@ from .forms import TaxiPartyForm, LocationForm
 from .serializers import TaxiPartySerializer
 
 import datetime
+import time
 
 # Create your views here.
 def createTaxiParty_view(request):
@@ -149,13 +152,17 @@ def daily_party_view(request, date: str):
     return render(request, "dailyparty.html", context)
 
 @api_view(['GET'])
-def getTaxiPartyOfMonth(request):
-    givenMonth = str(3)
-
-    if len(givenMonth) == 1:
-        givenMonth = '0' + givenMonth
-    givenMonth = f"-{givenMonth}-"
-
-    party = TaxiParty.objects.all().filter(date__contains=givenMonth)
+def getTaxiPartyOfMonth(request, month):
+    try:
+        testMonth = str(month)
+        testMonth += "-01"
+        format = "%Y-%m-%d"
+        print(testMonth)
+        time.strptime(testMonth, format)
+    except:
+        raise Http404
+    print("here")
+    party = TaxiParty.objects.all().filter(date__contains=str(month))
     serializer = TaxiPartySerializer(party, many=True)
     return Response(serializer.data)
+    
