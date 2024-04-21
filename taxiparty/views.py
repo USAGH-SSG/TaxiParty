@@ -16,6 +16,8 @@ def createTaxiParty_view(request):
     if request.user.is_anonymous:
         return redirect(reverse('user:login'))
     form = TaxiPartyForm(request.POST or None)
+
+    # if request.method == 'POST':
     if form.is_valid():
         party = form.save()
         party.rider.add(request.user)
@@ -23,8 +25,11 @@ def createTaxiParty_view(request):
         party.save()
         return redirect(reverse('taxiparty:taxipartydynamic', kwargs={"id": party.id}))
     
+    locations = Location.objects.all()
+
     context = {
-        'form': form
+        'form': form,
+        'locations': locations,
     }
     return render(request, "createtaxiparty.html", context)
 

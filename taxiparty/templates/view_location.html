@@ -2,11 +2,27 @@
 
 {% block content %}
 
-<h2> List of USAG Humphreys Locations </h2> <br/>
+<div class="container-lg"> <!-- Adjusting the container to container-lg -->
+    <div class="row justify-content-center">
+        <div class="align-items-center" style="width: 70%;"> <!-- Adjusting the width of the content -->
+            <h2 class="text-center">USAG Humphreys Locations</h2>
+            <br/>
+            <ul class="list-group" style="width: 100%;"> <!-- Adjusting the width of the list -->
+                {% for location in locationList %}
+                <li class="list-group-item d-flex justify-content-between align-items-center" style="width: 100%;">
+                    <div class="ms-2 me-auto text-center" style="width: 100%;">
+                        <div class="fw-bold">{{ location }}</div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
 
-<ul>
-    {% for location in locationList %}
-    <li>{{location}}</li>
-    {% endfor %}
-</ul>
+
+
+
+    
+
 {% endblock %}
