@@ -3,6 +3,7 @@
 {% block content %}
 <head>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="/static/js/viewparty.js"></script>
 </head>
 
 <script>    
@@ -10,32 +11,6 @@
         $("#getButton").click(get_monthinfo); 
     });
 
-    function get_monthinfo() {
-    $.ajax({
-        type: 'GET',
-        url: 'https://psychic-robot-p5xp4g94vpjf745q-8000.app.github.dev/taxiparty/month/2024-04',
-        dataType: 'json',
-        success: function(result) {
-            // Group objects by date
-            var groupedData = {};
-
-            result.forEach(function(item) {
-                var date = item.date;
-                if (!groupedData[date]) {
-                    groupedData[date] = [];
-                }
-                groupedData[date].push(item);
-            });
-
-            console.log(groupedData); // Log the grouped data to inspect its structure
-            // Display the grouped JSON response in HTML
-            $("#data").html("<pre>" + JSON.stringify(groupedData, null, 2) + "</pre>");
-        },
-        error: function() {
-            alert("Error occurred while fetching data.");
-        }
-    });
-}
 
 </script>
 

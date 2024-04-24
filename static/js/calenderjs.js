@@ -2,8 +2,8 @@ window.onload = function() {
     updateCalendar();
 }
 
- function getCurrentDate(){
- const cDate = new Date();
+function getCurrentDate(){
+    const cDate = new Date();
     return {
         currentYear: cDate.getFullYear(),
         currentMonth: cDate.getMonth(),
@@ -20,8 +20,16 @@ let requestArray = new Array(new Date(currentYear, currentMonth + 1, 0)).fill("X
 //requestArray[27] = "2000, Pyeongtaek St. -> Wa mart";
 
 
+
+
 // Function to update the calendar
 function updateCalendar() {
+    //For viewing party
+    for (const requestTime in groupedData) {
+        const dates = requestTime.date.parse("-")[0];
+        console.log(dates);
+    }
+
     const calendarBody = document.getElementById('calendar').getElementsByTagName('tbody')[0];
     const currentDate = new Date(currentYear, currentMonth, 1);
     //Date(year, month, day)
