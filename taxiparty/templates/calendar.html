@@ -2,18 +2,18 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
 
-<script src="static/js/viewparty.js" type="text/javascript"></script> 
-<script src="static/js/calenderjs.js" type="text/javascript"></script> 
+<script src="static/js/viewparty.js" type="text/javascript"></script>
+<script src="static/js/calenderjs.js" type="text/javascript"></script>
+
 
 <body>
     <div class="container mt-4">
-        
         <div class="month-selector">
             <button onclick="prevMonth()">Previous Month</button>
-            <span id="currentMonthYear">txt</span>
+            <span id="currentMonthYear">Month</span>
             <button onclick="nextMonth()">Next Month</button>
         </div>
-        
+
         <table id="calendar">
             <thead>
                 <tr>
@@ -24,7 +24,7 @@
                     <th>Thu</th>
                     <th>Fri</th>
                     <th>Sat</th>
-              </tr>
+                </tr>
             </thead>
             <tbody>
             </tbody>
@@ -32,4 +32,13 @@
 
 </body>
 
+<script>
+    // console.log("Change reflected")
+</script>
+
+<script>
+    window.onload = function() {
+        get_monthinfo(0, 0, updateCalendar);
+    };
+</script>
 {% endblock %}

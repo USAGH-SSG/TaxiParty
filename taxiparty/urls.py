@@ -10,9 +10,10 @@ urlpatterns = [
     path('taxiparty/<int:id>/edit/', views.party_edit_view, name='taxipartyedit'),
     path('taxiparty/<int:id>/join/', views.party_join_view, name='taxipartyjoin'),
     path('taxiparty/<int:id>/leave/', views.party_leave_view, name='taxipartyleave'),
+    path('taxiparty/<int:id>/delete/', views.party_delete_view, name='taxipartydelete'),
 
     path('taxiparty/daily/<slug:date>/', views.daily_party_view, name='dailyparty'),
-    path('taxiparty/month/<slug:month>', views.getTaxiPartyOfMonth, name='monthlytaxiparty'),
+    path('taxiparty/month/<slug:yearMonth>', views.getTaxiPartyOfMonth, name='monthlytaxiparty'),
 
     path('createlocation/', views.create_location_view, name='createlocation'),
     path('viewlocation/', views.view_location_view, name='viewlocation'),
