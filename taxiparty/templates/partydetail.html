@@ -37,6 +37,9 @@
                         <li class="list-group-item"><a href='./join/'>Join Party</a></li>
                         {% endif %}
                         <li class="list-group-item"><a href='./leave/'>Leave Party</a></li>
+                        {% if user.is_superuser %}
+                        <li class="list-group-item"><a href='./delete/'>Delete Party</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

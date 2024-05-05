@@ -27,7 +27,7 @@ def createTaxiParty_view(request):
         party.owner = request.user
         party.save()
         return redirect(reverse('taxiparty:taxipartydynamic', kwargs={"id": party.id}))
-    
+
     locations = Location.objects.all()
 
     context = {
@@ -43,7 +43,7 @@ def create_location_view(request):
     if form.is_valid():
         form.save()
         return redirect(reverse('taxiparty:home'))
-    
+
     context = {
         'form': form
     }
@@ -51,7 +51,7 @@ def create_location_view(request):
 
 def home_view(request):
     partyList = TaxiParty.objects.all()
-    
+
     context = {
         "partyList": partyList
     }
@@ -59,7 +59,7 @@ def home_view(request):
 
 def view_location_view(request):
     locationList = Location.objects.all()
-    
+
     context = {
         "locationList": locationList
     }
@@ -83,7 +83,7 @@ def party_edit_view(request, id):
     if request.user != obj.owner:
         messages.info(request, 'You are not the owner of the Taxi Party!')
         return redirect(reverse('taxiparty:taxipartydynamic', kwargs={'id': id}))
-    if request.method == 'POST':    
+    if request.method == 'POST':
         form = TaxiPartyForm(request.POST, instance=obj)
         if form.is_valid():
             form.save()
@@ -133,7 +133,7 @@ def my_party_view(request):
         'partyList': myParties
     }
     return render(request, "myparty.html", context)
-    
+
 def daily_party_view(request, date: str):
     try:
         year, month, day = [int(x) for x in date.split('-')]
@@ -151,18 +151,25 @@ def daily_party_view(request, date: str):
 
     return render(request, "dailyparty.html", context)
 
+def party_delete_view(request, id):
+    if request.user.is_anonymous or not request.user.is_superuser:
+        raise Http404
+    party = get_object_or_404(TaxiParty, id=id)
+    party.delete()
+    return redirect(reverse('taxiparty:home'))
+
+
+# @api_view(['REMOVE'])
+
 @api_view(['GET'])
-def getTaxiPartyOfMonth(request, month):
+def getTaxiPartyOfMonth(request, yearMonth):
     try:
-        testMonth = str(month)
-        testMonth += "-01"
+        testYearMonth = str(yearMonth)
+        testYearMonth += "-01"
         format = "%Y-%m-%d"
-        print(testMonth)
-        time.strptime(testMonth, format)
+        time.strptime(testYearMonth, format)
     except:
         raise Http404
-    print("here")
-    party = TaxiParty.objects.all().filter(date__contains=str(month))
+    party = TaxiParty.objects.all().filter(date__contains=str(yearMonth))
     serializer = TaxiPartySerializer(party, many=True)
     return Response(serializer.data)
-    
