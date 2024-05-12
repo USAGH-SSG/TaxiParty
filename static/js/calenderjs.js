@@ -8,8 +8,24 @@ var [currentYear, currentMonth, currentDate] = getCurrentDate();
 
 function partyToString(obj) {
   return (
-    obj["origin_name"] + " --> " + obj["destination_name"] + " @ " + obj["time"]
+    obj["origin_name"] + " → " + obj["destination_name"] + " @ " + String(obj["time"]).slice(0,2)
   );
+}
+
+function createDateString(year, month, date) {
+  if (month < 10) {
+    month = "0" + String(month)
+  } else {
+    month = String(month)
+  }
+
+  if (date < 10) {
+    date = "0" + String(date)
+  } else {
+    date = String(date)
+  }
+
+  return String(year) + "-" + month + "-" + date
 }
 
 // Function to update the calendar
@@ -27,29 +43,35 @@ function updateCalendar() {
   // Clear previous content
   calendarBody.innerHTML = "";
 
-  var requestArray = new Array(
+  var partyInDay = new Array( 
+    // Store up to three party in each day
+    // Index: Each date of month
+    // Element: Array length of 3 holding taxi party string representations
     new Date(currentYear, currentMonth + 1, 0).getDate() + 1
   );
 
-  for (var i = 0; i < requestArray.length; i++) {
-    requestArray[i] = new Array(3);
-  }
+  var idPartyInDay = new Array(
+    // Index: Each date of month
+    // Element: id of each party corresponding to party in partyInDay array
+    new Date(currentYear, currentMonth + 1, 0).getDate() + 1
+  );
 
-  console.log(groupedData);
+  for (var i = 0; i < partyInDay.length; i++) {
+    partyInDay[i] = new Array(3);
+    idPartyInDay[i] = new Array(3);
+  }
 
   groupedData.forEach((daysParty, date) => {
     var i = 0;
-    console.log(Number(date.split("-")[2]));
-    while (i < 3 && daysParty.length > i) {
-      console.log(daysParty[i]);
-      requestArray[Number(date.split("-")[2]) - 1][i] = partyToString(
+    while (i < 3 && daysParty.length > i) { 
+      // Include maximum of three parties per day
+      partyInDay[Number(date.split("-")[2]) - 1][i] = partyToString(
         daysParty[i]
       );
+      idPartyInDay[Number(date.split("-")[2]) - 1][i] = daysParty[i]["id"]
       i++;
     }
   });
-
-  console.log(requestArray);
 
   let p_DayCounter = 0;
   // Populate the calendar
@@ -71,26 +93,54 @@ function updateCalendar() {
       n_dayCell.classList.add("n_day_cell");
       const p_dayCell = document.createElement("td");
       p_dayCell.classList.add("p_day_cell");
+      const linkToDailyParty = document.createElement("a");
+      linkToDailyParty.classList.add("calendar_anchor")
+      const contentCellLinkToDailyParty = document.createElement("a");
+      contentCellLinkToDailyParty.classList.add("calendar_anchor")
 
       if (i === 0 && j < currentDate.getDay()) {
         // Add empty cells for previous month's days
         p_DayCounter = daysInPrvMonth - currentDate.getDay() + j + 1;
-        p_dayCell.textContent = p_DayCounter;
+        linkToDailyParty.href = "/taxiparty/daily/" + createDateString(currentYear, currentMonth, p_DayCounter);
+        linkToDailyParty.textContent = p_DayCounter;
+        p_dayCell.appendChild(linkToDailyParty);
         dayRow.appendChild(p_dayCell);
         contentRow.appendChild(contentCell);
       } else if (dayCounter <= daysInMonth) {
         // Add cells for the current month's days
-        dayCell.textContent = dayCounter;
-        taxiParty = "";
-        requestArray[dayCounter].forEach((element) => {
-          taxiParty = taxiParty + element + "\n";
-        });
-        contentCell.textContent = taxiParty;
+        dayInDateString = createDateString(currentYear, currentMonth+1, dayCounter)
+        linkToDailyParty.href = "/taxiparty/daily/" + dayInDateString;
+        contentCellLinkToDailyParty.href = "/taxiparty/daily/" + dayInDateString;
+        linkToDailyParty.textContent = dayCounter;
+        dayCell.appendChild(linkToDailyParty);
+        contentCell.appendChild(contentCellLinkToDailyParty)
+        for (let k = 0; k < 3; k++) {
+          if (partyInDay[dayCounter - 1][k]) {
+              const partyElement = document.createElement("div");
+              const linkToTaxiParty = document.createElement("a")
+              linkToTaxiParty.href = "/taxiparty/" + String(idPartyInDay[dayCounter - 1][k]) + "/"
+              linkToTaxiParty.textContent = partyInDay[dayCounter - 1][k];
+              partyElement.appendChild(linkToTaxiParty);
+              contentCellLinkToDailyParty.appendChild(partyElement);
+          }
+        }
+        var numOfParty = 0
+        if (groupedData.get(dayInDateString)) {
+          numOfParty = groupedData.get(dayInDateString).length
+        }
+        if (numOfParty > 3) {
+          const partyElement = document.createElement("div");
+          partyElement.textContent = "..." + String(numOfParty - 3) + " more";
+          contentCellLinkToDailyParty.appendChild(partyElement);
+        }
+        
         dayRow.appendChild(dayCell);
         contentRow.appendChild(contentCell);
         dayCounter++;
       } else {
-        n_dayCell.textContent = n_DayCounter;
+        linkToDailyParty.href = "/taxiparty/daily/" + createDateString(currentYear, currentMonth+2, n_DayCounter);
+        linkToDailyParty.textContent = n_DayCounter;
+        n_dayCell.appendChild(linkToDailyParty);
         dayRow.appendChild(n_dayCell);
         contentRow.appendChild(contentCell);
         n_DayCounter++;
