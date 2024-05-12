@@ -12,11 +12,9 @@
 
     {% include 'navbar.html' with request=request%}
 
-    <div class="container mt-4">
-        {% block content %}
-            <!-- Your content goes here -->
-        {% endblock %}
-    </div>
+    {% block content %}
+        <!-- Your content goes here -->
+    {% endblock %}
 
 </body>
 </html>

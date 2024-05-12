@@ -14,9 +14,7 @@ function get_monthinfo(year, month, callback) {
   } else {
     month = String(month);
   }
-  console.log(partyUrl);
   partyUrl = partyUrl + month;
-  console.log(partyUrl);
 
   $.ajax({
     type: "GET",
