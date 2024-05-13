@@ -29,7 +29,6 @@ function get_monthinfo(year, month, callback) {
         groupedData.get(date).push(item);
       });
 
-      console.log(groupedData); // Log the grouped data to inspect its structure
       if (callback && typeof callback === "function") {
         callback();
       } else {

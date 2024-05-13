@@ -32,7 +32,7 @@ function createDateString(year, month, date) {
 function updateCalendar() {
   const calendarBody = document
     // .getElementById("calendar")
-    .getElementsByTagName("thead")[0];
+    .getElementsByTagName("tbody")[0];
 
   const currentDate = new Date(currentYear, currentMonth, 1);
   //Date(year, month, day)

@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.http import Http404
-
+from django_user_agents.utils import get_user_agent
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -50,12 +50,19 @@ def create_location_view(request):
     return render(request, "create_location.html", context)
 
 def home_view(request):
-    partyList = TaxiParty.objects.all()
+    user_agent = get_user_agent(request)
 
     context = {
-        "partyList": partyList
+        
     }
-    return render(request, "taxipartyhome.html", context)
+
+    if user_agent.is_mobile:
+        print("rendermobile")
+        return render(request, "mobile_taxipartyhome.html", context)
+    elif user_agent.is_pc:
+        return render(request, "taxipartyhome.html", context)
+
+
 
 def view_location_view(request):
     locationList = Location.objects.all()
