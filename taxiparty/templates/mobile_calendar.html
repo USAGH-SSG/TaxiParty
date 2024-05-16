@@ -11,9 +11,13 @@
      
 
             <div class="month-selector">
-                <button onclick="prevMonth()">Previous Month</button>
-                <span id="currentMonthYear">Month</span>
-                <button onclick="nextMonth()">Next Month</button>
+                <span class="calendar_month" id="currentMonthYear">Month</span>
+                <div style="display: flex; flex-direction: row; width: 100%;">
+                    <button class="month_button" onclick="prevMonth()">Previous Month</button>
+                    <div class="month_button_filler"></div>
+
+                    <button class="month_button" onclick="nextMonth()">Next Month</button>
+                </div>
             </div>
     
             <table id="calendar">
@@ -31,8 +35,11 @@
                 <tbody>
                 </tbody>
             </table>
-            <div id="partyList">
-
+            <div class="partyList_container">
+                <h2 style="text-align: center;" id="partyListTitle">  </h2>
+                <div class="partyList" id="partyList">
+    
+                </div>
             </div>
        
     <div>

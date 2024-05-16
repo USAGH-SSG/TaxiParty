@@ -10,7 +10,9 @@ table {
 
 button {
     border: none;
+    background-color: inherit;
 }
+
 
 th, td {
     border: 2px solid #ddd;
@@ -30,10 +32,23 @@ td {
 }
 
 .month-selector {
-    margin-top: 20px;
+    background-color: rgb(223, 31, 31);
+    border-radius: 2%;
     display:flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: baseline;
+    box-sizing: border-box;
+}
+
+.calendar_month {
+    width: 100%;
+    text-align: center;
+    font-size:xx-large;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    box-sizing: border-box;
+    color: white;
 }
 
 .main-container {
@@ -102,7 +117,24 @@ li {
     background-color: white;
 }
 
-.date_button:
+.month_button {
+    width: 20%;
+    margin: 2%;
+    font-size: small;
+    background-color: white;
+    color: black;
+    border-radius: 10%;
+}
+
+.month_button_filler {
+    width:60%
+}
+
+.date_button:focus,.date:active {
+    background-color: inherit;
+    outline: none !important;
+    box-shadow: none !important;
+ }
 
 .calendar_anchor:hover {
     color: inherit !important
@@ -113,7 +145,16 @@ a {
     color: inherit;
 }
 
-  #currentMonthYear {
-    font-size: 55px;
-    background-color: antiquewhite;
+.partyList_container {
+    margin-top: 5%;
+    padding: 2%;
+    border-color: gray;
+    min-height: 100px;
+    border: solid;
+    border-radius: 5%;
+    width: 100%
+}
+
+.partyList {
+    
 }

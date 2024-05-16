@@ -58,6 +58,8 @@ function updateCalendar() {
   let dayCounter = 1; // daycount of current month
   let n_DayCounter = 1; //daycount for next month
 
+  
+
   for (let i = 0; i < 6; i++) {
     const dayRow = document.createElement("tr");
 
@@ -70,8 +72,22 @@ function updateCalendar() {
       p_dayCell.classList.add("p_day_cell");
       const dateButton = document.createElement("button")
       dateButton.classList.add("date_button")
+      dateButton.classList.add("shadow-none")
+      const partyListCell = document.getElementById("partyList")
+      const partyListTitle = document.getElementById("partyListTitle")
       dateButton.onclick = () => {
-        console.log(dateButton.textContent)
+        partyListCell.innerHTML = ''
+        var dayInDateString = createDateString(currentYear, currentMonth+1, dateButton.textContent);
+        partyListTitle.textContent = dayInDateString;
+        if (groupedData.get(dayInDateString)) {
+          groupedData.get(dayInDateString).forEach(element => {
+            console.log(element['origin_name'] + " → " + element['destination_name'] + " @ " + element['time'].slice(0, 5));
+            const partyCell = document.createElement("div");
+            partyCell.classList.add("partyCell");
+            partyCell.textContent = element['origin_name'] + " → " + element['destination_name'] + " @ " + element['time'].slice(0, 5)
+            partyListCell.appendChild(partyCell)
+          });
+        }
       };
 
       if (i === 0 && j < currentDate.getDay()) {
@@ -82,7 +98,6 @@ function updateCalendar() {
 
       } else if (dayCounter <= daysInMonth) {
         // Add cells for the current month's days
-        dayInDateString = createDateString(currentYear, currentMonth+1, dayCounter)
         dateButton.textContent = dayCounter;
         dayCell.appendChild(dateButton);
         dayRow.appendChild(dayCell);
@@ -107,7 +122,8 @@ function updateCalendar() {
       year: "numeric",
       month: "long",
     }).format(currentDate);
-}
+    
+  }
 
 // Function to navigate to the previous month
 function prevMonth() {
