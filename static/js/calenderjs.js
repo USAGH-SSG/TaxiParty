@@ -160,6 +160,7 @@ function updateCalendar() {
       year: "numeric",
       month: "long",
     }).format(currentDate);
+    console.log(document.getElementById("currentMonthYear").textContent)
 }
 
 // Function to navigate to the previous month

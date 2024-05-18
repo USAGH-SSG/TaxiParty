@@ -75,17 +75,20 @@ function updateCalendar() {
       dateButton.classList.add("shadow-none")
       const partyListCell = document.getElementById("partyList")
       const partyListTitle = document.getElementById("partyListTitle")
+
       dateButton.onclick = () => {
         partyListCell.innerHTML = ''
         var dayInDateString = createDateString(currentYear, currentMonth+1, dateButton.textContent);
         partyListTitle.textContent = dayInDateString;
         if (groupedData.get(dayInDateString)) {
           groupedData.get(dayInDateString).forEach(element => {
-            console.log(element['origin_name'] + " → " + element['destination_name'] + " @ " + element['time'].slice(0, 5));
-            const partyCell = document.createElement("div");
-            partyCell.classList.add("partyCell");
-            partyCell.textContent = element['origin_name'] + " → " + element['destination_name'] + " @ " + element['time'].slice(0, 5)
-            partyListCell.appendChild(partyCell)
+            // const partyCell = document.createElement("div");
+            // partyCell.classList.add("partyCell");
+            const partyLink = document.createElement("a")
+            // partyLink.classList.add("calendar_anchor")
+            partyLink.textContent = element['origin_name'] + " → " + element['destination_name'] + " @ " + element['time'].slice(0, 5)
+            partyLink.href = "/taxiparty/" + element['id'];
+            partyListCell.appendChild(partyLink)
           });
         }
       };

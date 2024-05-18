@@ -75,11 +75,13 @@ def view_location_view(request):
 def dynamic_lookup_view(request, id):
     obj = get_object_or_404(TaxiParty, id=id)
     joinable = (request.user not in obj.rider.all())
+    editable = (request.user == obj.owner)
     anon = request.user.is_anonymous
     context = {
         "party": obj,
+        "editable": editable,
         "joinable": joinable,
-        "anon": anon
+        "anon": anon,
     }
     return render(request, "partydetail.html", context)
 

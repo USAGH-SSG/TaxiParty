@@ -11,9 +11,12 @@
      
 
             <div class="month-selector">
-                <button onclick="prevMonth()">Previous Month</button>
-                <span id="currentMonthYear">Month</span>
-                <button onclick="nextMonth()">Next Month</button>
+                <span class="calendar_month" id="currentMonthYear">Month</span>
+                <div class="calendar_button_container">
+                    <button class="month_button" onclick="prevMonth()">Previous Month</button>
+                    <div class="month_button_filler"></div>
+                    <button class="month_button" onclick="nextMonth()">Next Month</button>
+                </div>
             </div>
     
             <table id="calendar">
