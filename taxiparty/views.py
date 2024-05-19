@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.http import Http404
-
+from django_user_agents.utils import get_user_agent
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -16,6 +16,8 @@ import time
 
 # Create your views here.
 def createTaxiParty_view(request):
+    user_agent = get_user_agent(request)
+
     if request.user.is_anonymous:
         return redirect(reverse('user:login'))
     form = TaxiPartyForm(request.POST or None)
@@ -31,6 +33,7 @@ def createTaxiParty_view(request):
     locations = Location.objects.all()
 
     context = {
+        'mobile': user_agent.is_mobile,
         'form': form,
         'locations': locations,
     }
@@ -43,36 +46,51 @@ def create_location_view(request):
     if form.is_valid():
         form.save()
         return redirect(reverse('taxiparty:home'))
+    user_agent = get_user_agent(request)
 
     context = {
-        'form': form
+        'form': form,
+        'mobile': user_agent.is_mobile
     }
     return render(request, "create_location.html", context)
 
 def home_view(request):
-    partyList = TaxiParty.objects.all()
+    user_agent = get_user_agent(request)
 
     context = {
-        "partyList": partyList
+        'mobile': user_agent.is_mobile
     }
-    return render(request, "taxipartyhome.html", context)
+
+    if user_agent.is_mobile:
+        return render(request, "mobile_taxipartyhome.html", context)
+    elif user_agent.is_pc:
+        return render(request, "taxipartyhome.html", context)
+
+
 
 def view_location_view(request):
     locationList = Location.objects.all()
+    user_agent = get_user_agent(request)
 
     context = {
-        "locationList": locationList
+        "locationList": locationList,
+        'mobile': user_agent.is_mobile
     }
     return render(request, "view_location.html", context)
 
 def dynamic_lookup_view(request, id):
     obj = get_object_or_404(TaxiParty, id=id)
     joinable = (request.user not in obj.rider.all())
+    editable = (request.user == obj.owner)
     anon = request.user.is_anonymous
+    user_agent = get_user_agent(request)
+
     context = {
         "party": obj,
+        "editable": editable,
         "joinable": joinable,
-        "anon": anon
+        "anon": anon,
+        'mobile': user_agent.is_mobile
     }
     return render(request, "partydetail.html", context)
 
@@ -90,8 +108,12 @@ def party_edit_view(request, id):
             return redirect(reverse('taxiparty:taxipartydynamic', kwargs={'id': id}))
     else:
         form = TaxiPartyForm(instance=obj)
+
+    user_agent = get_user_agent(request)
+    
     context = {
-        'form': form
+        'form': form,
+        'mobile': user_agent.is_mobile
     }
     return render(request, 'edit_party.html', context)
 
@@ -129,23 +151,30 @@ def my_party_view(request):
     if request.user.is_anonymous:
         return redirect(reverse('user:login'))
     myParties = TaxiParty.objects.filter(rider=request.user)
+    user_agent = get_user_agent(request)
+
     context = {
+        'mobile': user_agent.is_mobile,
         'partyList': myParties
     }
     return render(request, "myparty.html", context)
 
 def daily_party_view(request, date: str):
+    user_agent = get_user_agent(request)
+
     try:
         year, month, day = [int(x) for x in date.split('-')]
         dateInDateTime = datetime.date(year, month, day)
         myParties = TaxiParty.objects.filter(date=dateInDateTime)
         context = {
             'date': dateInDateTime.__str__(),
-            'partyList': myParties
+            'partyList': myParties,
+            'mobile': user_agent.is_mobile
         }
     except:
         messages.info(request, 'Oops! Wrong Date Entered! Please enter a valid date.')
         context = {
+            'mobile': user_agent.is_mobile,
             'partyList': []
         }
 

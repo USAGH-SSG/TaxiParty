@@ -32,13 +32,20 @@
                 <div class="card-body">
                     <h5 class="card-title">Actions</h5>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><a href='./edit/'>Edit Party Details</a></li>
-                        {% if joinable and not anon %}
-                        <li class="list-group-item"><a href='./join/'>Join Party</a></li>
+                        {% if anon %}
+                        <li class="list-group-item">Log In to Join Party!</li>
                         {% endif %}
-                        <li class="list-group-item"><a href='./leave/'>Leave Party</a></li>
+                        {% if owner %}
+                        <li class="list-group-item link"><a href='./edit/'>Edit Party Details</a></li>
+                        {% endif %}
+                        {% if joinable and not anon %}
+                        <li class="list-group-item link"><a href='./join/'>Join Party</a></li>
+                        {% endif %}
+                        {% if not joinable and not anon %}
+                        <li class="list-group-item warning"><a href='./leave/'>Leave Party</a></li>
+                        {% endif %}
                         {% if user.is_superuser %}
-                        <li class="list-group-item"><a href='./delete/'>Delete Party</a></li>
+                        <li class="list-group-item warning"><a href='./delete/'>Delete Party</a></li>
                         {% endif %}
                     </ul>
                 </div>

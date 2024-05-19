@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
+from django_user_agents.utils import get_user_agent
 
 from .forms import LoginForm, SignupForm
 
@@ -13,8 +13,10 @@ def signup_view(request):
     if form.is_valid():
         form.save()
         return redirect(reverse('user:login'))
+    user_agent = get_user_agent(request)
 
     context = {
+        'mobile': user_agent.is_mobile,
         'form': form
     }
     return render(request, 'signup.html', context)
@@ -30,9 +32,11 @@ def login_view(request):
             return redirect('../../')
         else:
             messages.warning(request, "Wrong user credentials")
-    
+    user_agent = get_user_agent(request)
+
     context = {
         'form': form,
+        'mobile': user_agent.is_mobile
     }
     return render(request, "login.html", context)
 
