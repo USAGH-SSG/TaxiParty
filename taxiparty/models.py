@@ -34,5 +34,5 @@ class TaxiParty(models.Model):
         return riders[:-2]
 
     def __str__(self) -> str:
-        return f"{self.origin} -> {self.destination}, {self.time.__str__()[:5]} {self.date.__str__()}."
+        return f"{self.origin} → {self.destination}, {self.time.__str__()[:5]} {self.date.__str__()}."
 

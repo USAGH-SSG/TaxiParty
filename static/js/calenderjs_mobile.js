@@ -65,7 +65,7 @@ function updateCalendar() {
 
     for (let j = 0; j < 7; j++) {
       const dayCell = document.createElement("td");
-      dayCell.classList.add("day_cell");
+      dayCell.classList.add("day_cell_mobile");
       const n_dayCell = document.createElement("td");
       n_dayCell.classList.add("n_day_cell");
       const p_dayCell = document.createElement("td");
@@ -82,13 +82,14 @@ function updateCalendar() {
         partyListTitle.textContent = dayInDateString;
         if (groupedData.get(dayInDateString)) {
           groupedData.get(dayInDateString).forEach(element => {
-            // const partyCell = document.createElement("div");
-            // partyCell.classList.add("partyCell");
+            const partyCell = document.createElement("div");
+            partyCell.classList.add("partyCell");
             const partyLink = document.createElement("a")
             // partyLink.classList.add("calendar_anchor")
             partyLink.textContent = element['origin_name'] + " → " + element['destination_name'] + " @ " + element['time'].slice(0, 5)
             partyLink.href = "/taxiparty/" + element['id'];
-            partyListCell.appendChild(partyLink)
+            partyCell.appendChild(partyLink)
+            partyListCell.appendChild(partyCell)
           });
         }
       };

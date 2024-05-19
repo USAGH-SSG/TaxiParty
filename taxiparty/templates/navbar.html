@@ -1,24 +1,50 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container" style="display: flex; flex-direction: column;"> 
         <a class="navbar-brand" href="{% url 'taxiparty:home' %}">USAG Humphreys Taxi Party</a>
-        {% if request.user.is_authenticated %}
-            <p class="navbar-brand">Welcome {{ request.user.username }}!</p>
-        {% endif %}
-        <ul class="navbar-nav mx-auto" style="display: flex; text-align: center">
+
+        <div class="navbar-nav mx-auto" style="display: flex; flex-direction: row; text-align: center; justify-content: center;">
             {% if request.user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'user:logout' %}">Logout</a>
-                </li>
+            <div style="flex: 1; flex-direction: column;">
+                <p style="text-align: center; color: white; margin-bottom: 0%;">Welcome {{ request.user.username }}!</p>
+                <div >
+                    <a class="nav-link" style="padding-top: 0;" href="{% url 'user:logout' %}">Logout</a>
+                </div>
+            </div>
             {% else %}
-                <li class="nav-item">
+                <div class="nav-item">
                     <a class="nav-link" href="{% url 'user:login' %}">Login</a>
-                </li>
-                <li class="nav-item">
+                </div>
+                <div class="nav-item">
                     <a class="nav-link" href="{% url 'user:signup' %}">Signup</a>
-                </li>
+                </div>
             {% endif %}
-        </ul>
-        <ul class="navbar-nav mx-auto" style="text-align: center">
+            {% if mobile %}
+                <button onclick="myFunction()" class="dropbtn">Menu</button>
+            {% endif %}
+            </div>
+        {% if mobile %}
+        <div id="myDropdown" class="dropdown-content">
+          <a href="{% url 'taxiparty:createtaxiparty' %}">Create Taxi Party</a>
+          <a href="{% url 'taxiparty:viewlocation' %}">View Humphreys Locations</a>
+          <a href="{% url 'taxiparty:createlocation' %}">Create USAG Humphreys Locations</a>
+          <a href="{% url 'taxiparty:myparty' %}">View My Taxi Parties</a>
+        </div>
+        {% else %}
+        <div class="navbar-menu">
+            <div class="navbar-menu-item">
+                <a href="{% url 'taxiparty:createtaxiparty' %}">Create Taxi Party</a>
+            </div>
+            <div class="navbar-menu-item">
+                <a href="{% url 'taxiparty:viewlocation' %}">View Humphreys Locations</a>
+            </div>
+            <div class="navbar-menu-item">
+                <a href="{% url 'taxiparty:createlocation' %}">Create USAG Humphreys Locations</a>
+            </div>
+            <div class="navbar-menu-item">
+                <a href="{% url 'taxiparty:myparty' %}">View My Taxi Parties</a>
+            </div>
+        </div>
+        <!-- <ul class="navbar-nav mx-auto" style="text-align: center">
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'taxiparty:createtaxiparty' %}">Create Taxi Party</a>
             </li>
@@ -31,6 +57,27 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'taxiparty:myparty' %}">View My Taxi Parties</a>
             </li>
-        </ul>       
+        </ul>        -->
+        {% endif %}
     </div>
 </nav>
+
+<script>
+    function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+    // Close the dropdown menu if the user clicks outside of it
+    window.onclick = function(event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }   
+    }
+</script>
