@@ -7,16 +7,16 @@
 
 
 <body>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet"/>
     <div class="container" style="max-width:100%;">
      
 
             <div class="month-selector">
-                <span class="calendar_month" id="currentMonthYear">Month</span>
                 <div class="calendar_button_container">
-                    <button class="month_button" onclick="prevMonth()">Previous Month</button>
-                    <div class="month_button_filler"></div>
+                    <button class="month_button" onclick="prevMonth()"><i class="fas fa-chevron-left"></i></button>
+                    <div class="calendar_month" id="currentMonthYear">month</div>
 
-                    <button class="month_button" onclick="nextMonth()">Next Month</button>
+                    <button class="month_button" onclick="nextMonth()"><i class="fas fa-chevron-right"></i></button>
                 </div>
             </div>
     
