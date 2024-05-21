@@ -43,7 +43,8 @@ td {
 }
 
 .month-selector {
-    background-color: rgb(223, 31, 31);
+    background-color: white;
+    color: black;
     border-radius: 2%;
     display:flex;
     flex-direction: column;
@@ -53,14 +54,13 @@ td {
 }
 
 .calendar_month {
-    width: 100%;
-    height: 60%;
+    width: 70%;
+    height: 80%;
     text-align: center;
-    font-size:xx-large;
-    margin-top: 3%;
-    margin-bottom: 3%;
+    font-size:x-large;
+    margin: auto;
     box-sizing: border-box;
-    color: white;
+    color: black;
 }
 
 .main-container {
@@ -71,9 +71,9 @@ td {
 
 .homepage-container{
     background-color: white;
-    padding: 1%;
+    /*padding: 1%;
     border-radius: 2%;
-    border-style: ridge;
+    border-style: ridge;*/
 }
 
 li {
@@ -140,8 +140,8 @@ li {
 }
 
 .month_button {
-    width: 20%;
-    height:70px;
+    width: 15%;
+    height:80%;
     margin: 2%;
     font-size: small;
     background-color: white;
@@ -149,9 +149,7 @@ li {
     border-radius: 5%;
 }
 
-.month_button_filler {
-    width:60%
-}
+
 
 .date_button:focus,.date:active {
     background-color: inherit;
