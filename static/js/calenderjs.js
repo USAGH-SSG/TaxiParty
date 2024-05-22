@@ -182,3 +182,8 @@ function nextMonth() {
   }
   get_monthinfo(currentYear, currentMonth + 1, updateCalendar);
 }
+
+//Function to show current month
+function goBacktoToday(){
+  get_monthinfo(initalYear, initalMonth + 1, updateCalendar);
+}
