@@ -5,6 +5,9 @@ function getCurrentDate() {
 
 // Initial day, month, year
 var [currentYear, currentMonth, currentDate] = getCurrentDate();
+var [initialYear, initialMonth, initialDate] = [currentYear, currentMonth, currentDate];
+
+
 
 function partyToString(obj) {
   return (
@@ -147,4 +150,11 @@ function nextMonth() {
     currentYear++;
   }
   get_monthinfo(currentYear, currentMonth + 1, updateCalendar);
+  console.log(currentYear, currentMonth + 1);
+}
+
+//Function to show current month
+function goBacktoToday(){
+  get_monthinfo(initialYear, initialMonth, updateCalendar);
+  console.log(initialYear, initialMonth);
 }
