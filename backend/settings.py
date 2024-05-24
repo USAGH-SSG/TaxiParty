@@ -26,7 +26,7 @@ SECRET_KEY = subprocess.run("echo $SECRET_KEY", shell=True, capture_output=True)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['namsengi11.pythonanywhere.com', 'localhost']
 
 
 # Application definition
@@ -92,7 +92,7 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
-AUTH_USER_MODEL = 'user.User' 
+AUTH_USER_MODEL = 'user.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -109,6 +109,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [ 
+
+    ]
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
@@ -125,7 +130,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = "static/"
+
+STATIC_URL = '/static/'
+
+# if not DEBUG:
+#     STATIC_ROOT = '/home/namsengi11/CFCLife/static'
+# else:
+#     STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 STATICFILES_DIRS =(
     os.path.join(BASE_DIR, 'static'),
