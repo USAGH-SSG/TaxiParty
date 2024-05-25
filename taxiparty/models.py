@@ -13,7 +13,7 @@ class Location(models.Model):
         return self.name
     
 class TaxiParty(models.Model):
-    date = models.DateField(blank=False, default=datetime.date.today)
+    date = models.DateField(blank=False, default=datetime.date.today())
     time = models.TimeField(blank=False, default=datetime.time(8, 00))
     origin = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='origin')
     destination = models.ForeignKey(Location, on_delete=models.CASCADE, related_name='destination')
