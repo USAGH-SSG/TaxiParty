@@ -10,7 +10,7 @@ var [initialYear, initialMonth, initialDate] = getCurrentDate();
 
 function partyToString(obj) {
   return (
-    obj["origin_name"] + " → " + obj["destination_name"] + " @ " + String(obj["time"]).slice(0,2)
+    obj["origin_name"] + " → " + obj["destination_name"] + " @ " + String(obj["time"]).slice(0,5) + " (" + String(obj["rider"].length) + "/4)"
   );
 }
 
@@ -44,18 +44,6 @@ function updateCalendar() {
   // Clear previous content
   calendarBody.innerHTML = "";
 
-  // groupedData.forEach((daysParty, date) => {
-  //   var i = 0;
-  //   while (i < 3 && daysParty.length > i) { 
-  //     // Include maximum of three parties per day
-  //     partyInDay[Number(date.split("-")[2]) - 1][i] = partyToString(
-  //       daysParty[i]
-  //     );
-  //     idPartyInDay[Number(date.split("-")[2]) - 1][i] = daysParty[i]["id"]
-  //     i++;
-  //   }
-  // });
-
   let p_DayCounter = 0; // daycount of prev month
   let dayCounter = 1; // daycount of current month
   let n_DayCounter = 1; //daycount for next month
@@ -87,8 +75,7 @@ function updateCalendar() {
             const partyCell = document.createElement("div");
             partyCell.classList.add("partyCell");
             const partyLink = document.createElement("a")
-            // partyLink.classList.add("calendar_anchor")
-            partyLink.textContent = element['origin_name'] + " → " + element['destination_name'] + " @ " + element['time'].slice(0, 5)
+            partyLink.textContent = partyToString(element)
             partyLink.href = "/taxiparty/" + element['id'];
             partyCell.appendChild(partyLink)
             partyListCell.appendChild(partyCell)
@@ -150,6 +137,7 @@ function nextMonth() {
   }
   get_monthinfo(currentYear, currentMonth + 1, updateCalendar);
 }
+
 
 //Function to show current month
 function goBacktoToday(){
