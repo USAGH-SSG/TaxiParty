@@ -184,6 +184,8 @@ function nextMonth() {
 }
 
 //Function to show current month
-function goBacktoToday(){
-  get_monthinfo(initalYear, initalMonth + 1, updateCalendar);
+function goBacktoToday() {
+  [currentYear, currentMonth, currentDate] = getCurrentDate()
+  get_monthinfo(currentYear, currentMonth + 1, updateCalendar);
+  console.log(currentYear, currentMonth);
 }
