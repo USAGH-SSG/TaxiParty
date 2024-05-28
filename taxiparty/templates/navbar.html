@@ -1,4 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet"/>
+<nav class="navbar navbar-expand-lg" style=" color: #433E49; background-color: #F3E8EB;">
     <div class="container" style="display: flex; flex-direction: column;"> 
         <a class="navbar-brand" href="{% url 'taxiparty:home' %}">USAG Humphreys Taxi Party</a>
 
@@ -17,9 +18,10 @@
                 <div class="nav-item">
                     <a class="nav-link" href="{% url 'user:signup' %}">Signup</a>
                 </div>
-            {% endif %}
+                {% endif %}
+                
             {% if mobile %}
-                <button onclick="myFunction()" class="dropbtn">Menu</button>
+                <button onclick="myFunction()" class="dropbtn"> Menu</button>
             {% endif %}
             </div>
         {% if mobile %}
