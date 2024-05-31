@@ -6,12 +6,13 @@
 <script src="static/js/calenderjs_mobile.js" type="text/javascript"></script>
 
 <body>
-    <div class="calender_container" style="max-width:100%;">
+    <div class="calendar_container" style="max-width:100%;">
         <div class="calendar_button_container">
             <button class="month_button" onclick="prevMonth()"><i class="fas fa-chevron-left"></i></button>
              <div class="calendar_month" id="currentMonthYear">month</div>
             <button class="month_button" onclick="nextMonth()"><i class="fas fa-chevron-right"></i></button>
         </div>
+        <button class="backToToday-button" onclick="goBacktoToday()"> Go back to today </button>
         <table id="calendar">
             <thead>
                 <tr>
@@ -27,7 +28,6 @@
             <tbody>
             </tbody>
         </table>
-        <button onclick="goBacktoToday()"> Go back to today </button>
     </div>
 
 </body>
