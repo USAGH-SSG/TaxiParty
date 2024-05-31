@@ -1,3 +1,10 @@
+:root {
+    --primary: rgb(0, 48, 73);
+    --secondary: rgb(193, 18, 31);
+    --light: rgb(253, 240, 213);
+    --gray: rgb(200, 210, 195);
+  }
+
 html, body {
     font-family: Arial, sans-serif;
     height: 100%;
@@ -33,14 +40,17 @@ th, td {
 }
 
 th {
-    background-color: #f2f2f2;
     width: 13%;
+    background-color: var(--secondary);
+    color: var(--light);
 }
 
 td {
     height: 150px;
     width: 14.2857%;
+    background-color: var(--gray);
 }
+
 
 
 .calendar_month {
@@ -53,7 +63,7 @@ td {
     color: black;
 }
 
-.calender_container{
+.calendar_container{
     border-radius: 5%;
     padding: 2%;
     text-align: center;
@@ -61,11 +71,19 @@ td {
 .main-container {
     min-height: 100%;
     padding: 2%;
-    background-color: #433E49;
+    background-color: white;
+}
+
+.home-title {
+    text-align: center;
+    padding: 1%;
+    margin-bottom: 5px;
+    color: var(--secondary);
 }
 
 .homepage-container{
-    background-color: rgb(243, 232, 235);
+    background-color: var(--light);
+
     border: 2px solid black;
 
     border-radius: 5%;
@@ -176,6 +194,11 @@ a {
     color: rgb(6, 124, 202);
 }
 
+.navbar {
+    background-color: var(--primary);
+    color: white;
+}
+
 .navbar-menu {
     display: flex;
     flex-direction: row;
@@ -190,8 +213,8 @@ a {
 }
 
 .dropbtn {
-    background-color: #a5a5a5;
-    color: #433E49;
+    background-color: var(--secondary);
+    color: white;
     /* padding: 10px; */
     border: none;
     cursor: pointer;
@@ -246,4 +269,12 @@ a {
   .signupContainer{
     background-color: #433E49;
     color: a5a5a5;
+  }
+
+  .backToToday-button {
+    font-size: small;
+    background-color: var(--primary);
+    overflow: hidden;
+    border-radius: 10px;
+    color: white;
   }
