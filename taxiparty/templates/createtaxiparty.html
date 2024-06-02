@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-4">
-    <h1>Create New Taxi Party</h1>
-    <p>Creating a new taxi party for {{ request.user }}</p>
-    
-    <form method="POST">
-        {% csrf_token %}
-        <div class="form-group">
-            {{ form.as_p }}
-        </div>
-        <button class="btn btn-primary">Save</button>
-    </form>
+    <h3 class="home-title">Create New Taxi Party</h1>
+    <hr>
+    <div class="login-container">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+            <button class="sec-button">Save</button>
+        </form>
+    </div>
    
 </div>
 {% endblock %}

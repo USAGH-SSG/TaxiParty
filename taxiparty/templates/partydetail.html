@@ -2,7 +2,8 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h1 class="mb-4">Taxi Party Details</h1>
+    <h2 class="home-title">Taxi Party Details</h1>
+    <hr>
     {% if anon %}
         <h5>Log In to Join Taxi Party!</h5>
     {% endif %}
@@ -15,43 +16,36 @@
     </ul>
     {% endif %}
 
-    <div class="row">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Party Information</h5>
-                    <p class="card-text">Party Name: {{ party }}</p>
-                    <p class="card-text">Riders: {{ party.riderInStr }}</p>
-                    <p class="card-text">Party Owner: {{ party.owner }}</p>
-                    <!-- Add more party details as needed -->
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Actions</h5>
-                    <ul class="list-group list-group-flush">
-                        {% if anon %}
-                        <li class="list-group-item">Log In to Join Party!</li>
-                        {% endif %}
-                        {% if owner %}
-                        <li class="list-group-item link"><a href='./edit/'>Edit Party Details</a></li>
-                        {% endif %}
-                        {% if joinable and not anon %}
-                        <li class="list-group-item link"><a href='./join/'>Join Party</a></li>
-                        {% endif %}
-                        {% if not joinable and not anon %}
-                        <li class="list-group-item warning"><a href='./leave/'>Leave Party</a></li>
-                        {% endif %}
-                        {% if user.is_superuser %}
-                        <li class="list-group-item warning"><a href='./delete/'>Delete Party</a></li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <div style="margin-bottom: 4%;">
+        <div class="login-container" style="padding-top: 4%; padding-bottom: 4%;">
 
+            <h5 class="home-title">Party Information</h5>
+            <p class="card-text">Party Name: </br> {{ party }}</p>
+            <p class="card-text">Riders: {{ party.riderInStr }}</p>
+            <p class="card-text">Party Owner: {{ party.owner }}</p>
+            <!-- Add more party details as needed -->
+  
+        </div>
+    </div>
+    <div class="login-container">
+        <h5 class="home-title">Actions</h5>
+        <div>
+            {% if anon %}
+            <div class="party-row">Log In to Join Party!</div>
+            {% endif %}
+            {% if editable %}
+            <div class="party-row link"><a href='./edit/'>Edit Party Details</a></div>
+            {% endif %}
+            {% if joinable and not anon %}
+            <div class="party-row link"><a href='./join/'>Join Party</a></div>
+            {% endif %}
+            {% if not joinable and not anon %}
+            <div class="party-row warning"><a href='./leave/'>Leave Party</a></div>
+            {% endif %}
+            {% if user.is_superuser %}
+            <div class="party-row warning"><a href='./delete/'>Delete Party</a></div>
+            {% endif %}
+        </div>
     </div>
 </div>
 {% endblock %}

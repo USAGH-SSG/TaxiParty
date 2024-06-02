@@ -9,12 +9,21 @@
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
-    <link rel="stylesheet" href="{% static 'css/moblie_mystyle.css' %}">
+
+
+
+
+
+    
 </head>
 <body>
-    
-    {% include 'navbar.html' with request=request%}
+    {% if mobile %}
+        <link rel="stylesheet" href="{% static 'css/mobile_mystyle.css' %}">
+    {% else %}
+        <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    {% endif %}
+
+    {% include 'navbar.html' with request=request %}
     <div class="main-container">
         {% block content %}
             <!-- Your content goes here -->

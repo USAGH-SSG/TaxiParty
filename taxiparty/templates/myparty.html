@@ -1,16 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-4">
-    <h1>My Taxi Parties</h1>
 
-    <div class="col-md-6">
-        <div class="card">
-
-
-            {% include 'viewtaxiparty.html' with partyList=partyList %}
-
+    <h1 class="home-title">My Taxi Parties</h1>
+    <hr>
+    <div class="login-container" style="justify-items: center;">
+        {% for party in partyList %}
+        <div class="party-row">
+            <a href="{{ party.getAbsoluteUrl }}" class="text-decoration-none">{{ party }}</a>
         </div>
+        {% endfor %}
     </div>
-</div>
+
 {% endblock %}
