@@ -25,7 +25,6 @@ def createTaxiParty_view(request):
     # if request.method == 'POST':
     if form.is_valid():
         party = form.save()
-        print(party.time)
         party.rider.add(request.user)
         party.owner = request.user
         party.save()
