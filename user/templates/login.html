@@ -2,8 +2,8 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h1>Log into USAG Humphreys Taxi Party Service to Join Taxi Parties!</h1>
-
+    <h3 class="home-title">Log in to Join Taxi Parties!</h1>
+    
     <div class="row justify-content-center">
         <div class="col-md-6">
             {% for message in messages %}
@@ -14,13 +14,15 @@
                 </button>
             </div>
             {% endfor %}
-            <form method="POST">
-                {% csrf_token %}
-                <div class="form-group">
-                    {{ form.as_p }}
-                </div>
-                <button type="submit" class="btn btn-primary">Log In</button>
-            </form>
+            <div class="login-container">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{ form.as_p }}
+                    </div>
+                    <button type="submit" class="sec-button">Log In</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>

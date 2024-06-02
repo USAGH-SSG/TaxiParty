@@ -26,7 +26,7 @@ SECRET_KEY = subprocess.run("echo $SECRET_KEY", shell=True, capture_output=True)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['namsengi11.pythonanywhere.com', 'localhost']
+ALLOWED_HOSTS = ['taxiparty.pythonanywhere.com', 'localhost']
 
 
 # Application definition
@@ -134,7 +134,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 if not DEBUG:
-    STATIC_ROOT = '/home/namsengi11/CFCLife/static'
+    STATIC_ROOT = '/home/taxiparty/CFCLife/static'
 else:
     STATICFILES_DIRS =(
     os.path.join(BASE_DIR, 'static'),
