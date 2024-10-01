@@ -1,4 +1,3 @@
-# CFCLife
-Utilities that help CFC ROK soldiers in their USAG Humphreys Life
+# TaxiParty
 
-The website's first function is being able to create and join a taxi party.
+Provide Taxi-sharing service to those serving their nation at CFC/USAG Humphreys
