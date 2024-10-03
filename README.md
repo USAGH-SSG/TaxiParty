@@ -15,6 +15,8 @@ Used Django views and HTML/CSS for frontend
 
 Used Django and Django REST Framework for backend, SQlite for DB
 
+Used Pytest for automatic testings
+
 # Features
 <img src="https://github.com/user-attachments/assets/f0d83268-90bf-46ae-8d02-87993003ccb1" width="300">
 <img src="https://github.com/user-attachments/assets/5cbb944a-9437-4ee9-8049-92ebb2d84574" width="300">
